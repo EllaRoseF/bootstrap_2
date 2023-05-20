@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+
+$colors: (
+  primary: #031927,
+  accent: #ffffff,
+  primary2: #c8e0f4,
+  accent2: #508aa8,
+  eorange: #ba1200,
+);
+
+$phone: 300px;
+$tablet: 700px;
+$desktop: 1200px;
+
+$font-main: "Questrial", sans-serif;
+$padding: 15px;
+$borders: 15px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+@mixin phone {
+  @media (min-width: #{$phone}) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+// @function function-name($args) {
+//     @return value-to-be-returned;
+// }
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+body,
+html {
+  height: 100%;
+}
+body {
+  font-family: $font-main;
+  margin: 0;
+
+  #bg {
+    clip-path: polygon(100% 0, 100% 81%, 59% 100%, 0 100%, 0 0);
+    background-color: color(primary);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    @include tablet {
+      clip-path: polygon(0 0, 82% 0, 50% 100%, 0% 100%);
+    }
+  }
+
+  header a {
+    color: #c8e0f4;
+    text-decoration: none;
+    padding: $padding;
+    display: block;
+    text-transform: uppercase;
+    transition: opacity 100ms ease-out;
+    &:hover {
+      color: color(accent);
+    }
+  }
+}
+
+main {
+  @include phone {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  @include tablet {
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-template-areas: "primary card";
+    align-content: center;
+    justify-content: center;
+  }
+
+  section#card {
+    background: #ffffff;
+    padding: 20px;
+    margin: 1em auto;
+    border-radius: $borders;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    @include phone {
+      grid-row: 1 / span 2;
+    }
+    @include tablet {
+      grid-area: card;
+      height: 5em;
+      align-self: center;
+      margin: 1em;
+    }
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+
+      span {
+        //for the circles
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: color(accent2);
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      strong {
+        display: inline-block;
+        margin-left: max(40px);
+      }
+    }
+  }
+  section#primary {
+    color: #ffffff;
+    padding: $padding;
+    text-align: center;
+    grid-area: primary;
+    @include phone {
+      margin: 2em 0 0 2em;
+    }
+    @include tablet {
+      grid-area: primary;
+      text-align: left;
+      margin: 4em 0 0 4em;
+    }
+  }
+  h1 {
+    font-size: 2em;
+    margin-top: 10px;
+    text-transform: uppercase;
+    @include tablet {
+      width: 30%;
+      font-size: 4em;
+      line-height: 0.9em;
+    }
+  }
+  a {
+    color: color(primary);
+    border-radius: $borders;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: color(eorange);
+    display: inline-block;
+    text-align: center;
+    margin: 30px auto 0 auto;
+    padding: $padding;
+    border: color(eorange) solid 3px;
+    
+    @include phone {
+      padding: $padding $padding * 2;
+    }
+    @include tablet {
+      padding: $padding $padding * 3;
+    }
+  }
+  a:hover {
+    color: color(accent);
+  }
+}
